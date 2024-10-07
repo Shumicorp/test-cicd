@@ -43,8 +43,14 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy okha \
+          gcloud run deploy test2 \
             --image ${{ secrets.ARTIFACT_REGISTRY }}/test-my-app:${{ github.run_id }} \
             --platform managed \
             --region europe-west1 \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --project ${{ secrets.ROJECT_ID }} 
+            --min-instances=1 \ 
+            --max-instances=1 \ 
+            --no-cpu-boost \
+            --port=80
+            

@@ -27,6 +27,10 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.ARTIFACT_REGISTRY }}/test-my-app:latest .
+          
+      - name: Configure docker
+        run: |
+          gcloud auth configure-docker
 
       - name: Push Docker image
         run: |

@@ -20,14 +20,6 @@ jobs:
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
 
-
-    #   - name: Set up Google Cloud SDK
-    #     uses: google-github-actions/setup-gcloud@v1.0.1
-    #     with:
-    #       service_account_key: ${{ secrets.GCP_SA_KEY }} 
-    #       project_id: ${{ secrets.PROJECT_ID }}  
-    #       export_default_credentials: true
-
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.ARTIFACT_REGISTRY }}/test-my-app:${{ github.run_id }} .
@@ -57,5 +49,4 @@ jobs:
             --project ${{ secrets.PROJECT_ID }} \
             --min-instances=1 \
             --max-instances=1 \
-            --no-cpu-boost
-            --port=80
+            --no-cpu-boost 

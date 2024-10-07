@@ -30,7 +30,7 @@ jobs:
           
       - name: Configure docker
         run: |
-          gcloud auth configure-docker
+          gcloud auth configure-docker ${{ secrets.ARTIFACT_REGISTRY }}
 
       - name: Push Docker image
         run: |

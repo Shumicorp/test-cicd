@@ -1,0 +1,30 @@
+steps:
+  # Крок 1: Збірка Docker-імеджа
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone' ,' https://github.com/Shumicorp/test-cicd.git','--branch', '$BRANCH_NAME', '--single-branch']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/my-test-db-437307/node-ar/test-my-app:latest', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/my-test-db-437307/node-ar/test-my-app:$BUILD_ID', '.']
+  # Крок 2: Завантаження Docker-імеджа в Google Container Registry
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'europe-west1-docker.pkg.dev/my-test-db-437307/node-ar/test-my-app:$BUILD_ID']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'europe-west1-docker.pkg.dev/my-test-db-437307/node-ar/test-my-app:latest']
+  # Крок 3: Оновлення Cloud Run сервісу
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud run deploy okha \
+        --image europe-west1-docker.pkg.dev/my-test-db-437307/node-ar/test-my-app:latest \
+        --platform managed \
+        --region europe-west1  \
+        --allow-unauthenticated \
+        --quiet

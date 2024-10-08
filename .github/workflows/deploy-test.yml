@@ -49,5 +49,6 @@ jobs:
             --project ${{ secrets.PROJECT_ID }} \
             --min-instances=1 \
             --max-instances=1 \
+            --port=80 \
             --no-cpu-boost \
             --cpu-throttling

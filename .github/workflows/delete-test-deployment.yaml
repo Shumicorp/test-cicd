@@ -22,7 +22,7 @@ jobs:
 
       - name: Delete Cloud Run service
         run: |
-          gcloud run services delete test-okha \
+          gcloud run services delete ${{ github.head_ref }} \
             --platform managed \
             --region europe-west1 \
             --project ${{ secrets.PROJECT_ID }} \

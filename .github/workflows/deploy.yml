@@ -49,4 +49,5 @@ jobs:
             --project ${{ secrets.PROJECT_ID }} \
             --min-instances=1 \
             --max-instances=1 \
-            --no-cpu-boost 
+            --no-cpu-boost \
+            --cpu-throttling

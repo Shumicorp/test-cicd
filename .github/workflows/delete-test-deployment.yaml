@@ -1,0 +1,29 @@
+name: Delete Cloud Run Deployment
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  delete-deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+  
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Delete Cloud Run service
+        run: |
+          gcloud run services delete test-${{ github.head_ref }} \
+            --platform managed \
+            --region europe-west1 \
+            --project ${{ secrets.PROJECT_ID }} \
+            --quiet

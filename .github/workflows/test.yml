@@ -11,5 +11,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: read cread..
-        run: echo ${{ secrets.ARTIFACT_REGISTRY }}
+      - name: read creads..
+        run: echo ${{ secrets.ARTIFACT_REGISTRY }} >> ~/text.txt
+      - name: read creads2 
+        run: cat ~/text.txt

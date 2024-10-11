@@ -1,0 +1,15 @@
+name: Deploy test app Cloud Run
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build-and-deploy-to-test-env:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: read cread..
+        run: echo ${{ secrets.ARTIFACT_REGISTRY }}

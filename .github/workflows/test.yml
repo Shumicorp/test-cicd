@@ -12,6 +12,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: read creads..
-        run: echo ${{ secrets.ARTIFACT_REGISTRY }} >> ~/text.txt
+        run: echo ${{ secrets.ARTIFACT_REGISTRY }} > secret_file.txt
       - name: read creads2 
-        run: cat ~/text.txt
+        run: cat secret_file.txt
